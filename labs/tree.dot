@@ -1,0 +1,29 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label="Health (Life Expectancy) <= 0.748\ngini = 0.44\nsamples = 110\nvalue = [74, 36]\nclass = Europe", fillcolor="#e5813983"] ;
+1 [label="Generosity <= 0.11\ngini = 0.251\nsamples = 68\nvalue = [58, 10]\nclass = Europe", fillcolor="#e58139d3"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="Economy (GDP per Capita) <= 0.982\ngini = 0.49\nsamples = 7\nvalue = [3, 4]\nclass = Not Europe", fillcolor="#399de540"] ;
+1 -> 2 ;
+3 [label="gini = 0.375\nsamples = 4\nvalue = [3, 1]\nclass = Europe", fillcolor="#e58139aa"] ;
+2 -> 3 ;
+4 [label="gini = 0.0\nsamples = 3\nvalue = [0, 3]\nclass = Not Europe", fillcolor="#399de5ff"] ;
+2 -> 4 ;
+5 [label="Trust (Government Corruption) <= 0.307\ngini = 0.177\nsamples = 61\nvalue = [55, 6]\nclass = Europe", fillcolor="#e58139e3"] ;
+1 -> 5 ;
+6 [label="gini = 0.128\nsamples = 58\nvalue = [54, 4]\nclass = Europe", fillcolor="#e58139ec"] ;
+5 -> 6 ;
+7 [label="gini = 0.444\nsamples = 3\nvalue = [1, 2]\nclass = Not Europe", fillcolor="#399de57f"] ;
+5 -> 7 ;
+8 [label="Trust (Government Corruption) <= 0.071\ngini = 0.472\nsamples = 42\nvalue = [16, 26]\nclass = Not Europe", fillcolor="#399de562"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label="gini = 0.0\nsamples = 14\nvalue = [0, 14]\nclass = Not Europe", fillcolor="#399de5ff"] ;
+8 -> 9 ;
+10 [label="Family <= 1.271\ngini = 0.49\nsamples = 28\nvalue = [16, 12]\nclass = Europe", fillcolor="#e5813940"] ;
+8 -> 10 ;
+11 [label="gini = 0.124\nsamples = 15\nvalue = [14, 1]\nclass = Europe", fillcolor="#e58139ed"] ;
+10 -> 11 ;
+12 [label="gini = 0.26\nsamples = 13\nvalue = [2, 11]\nclass = Not Europe", fillcolor="#399de5d1"] ;
+10 -> 12 ;
+}
