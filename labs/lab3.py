@@ -1,6 +1,14 @@
 import pandas as pd
 
 
+
+#normalize a variable
+import pandas as pd
+from sklearn import preprocessing
+    
+
+
+
 # If your metric has a metric parameter you need to pass that in via a
 # dictionary to metric_params.
 knn = KNeighborsClassifier(n_neighbors=10, metric='euclidean', metric_params={'p': 3})
@@ -149,12 +157,6 @@ def try_crit_DT():
 
     #stich into a pandas DF
     finalDF = pd.DataFrame({"criterion": rec_crit,
-    "splitter": rec_split,
-    "max_features": rec_maxfeat,
-    "max_depth": rec_maxdepth,
-    "min_samples_split": rec_minsplit,
-    "min_samples_leaf": rec_minleaf,
-    "max_leaf_nodes": rec_maxleaf,
     "prediction_train": rec_trainP,
     "prediction_test": rec_testP 
     })

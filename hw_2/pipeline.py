@@ -50,6 +50,8 @@ def show_nulls(df):
 def fill_na_with_mean(df):
 	return df.fillna(df.mean())
 
+#finish pre-processing by dropping the true labels (forming the x/y splits)
+
 ## Part IV: Generating features/predictors
 
 # use pd.cut to cut continuous variables into ordered factors. similar to R's cut function.
@@ -60,15 +62,25 @@ def dummy_and_merge(df, x):
 
 ## Part V: Building classifier
 
-from sklearn.linear_model import LogisticRegression
+#from sklearn.linear_model import LogisticRegression
+#from sklearn.cross_validation import train_test_split
+
+#split data into testing and training data.
 
 
+#clf = LogisticRegression()
+#clf.fit(x_train,y_train)
 
 
+## Part VI: Evaluating the classifier
 
-
-
-
+def evaluateAccuracy(clf,predictDF, truthDF):
+    correct_pred = 0
+    pred_x = clf.predict(predictDF)
+    for i in range(0,len(predictDF)):
+        if pred_x[i] == truthDF.iloc[i]:
+            correct_pred +=1
+    return (correct_pred/len(predictDF))
 
 
 
