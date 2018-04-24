@@ -42,15 +42,50 @@ def correlation_heatmap(df):
 	plt.show()
 	return
 
+def point_graph():
+
+
 ## Part III: Pre-processing data
 
 def show_nulls(df):
 	return df.isna().sum().sort_values(ascending=False)
 
-def fill_na_with_mean(df):
+def fill_whole_df_with_mean(df):
+    num_cols = len(df.columns)
+    for i in range(0, num_cols):
+        df.iloc[:,i] = fill_col_with_mean(df.iloc[:,i])
+    return
+
+def fill_col_with_mean(df):
 	return df.fillna(df.mean())
 
+
+# feature-scaling
+
+from sklearn import preprocessing
+#min_max_scaler = preprocessing.MinMaxScaler()
+#df_scaled = min_max_scaler.fit_transform(df)
+
+# standardize data
+
+
+# scaled_column = scale(df[['x','y']])
+from sklearn.preprocessing import scale
+
+def scale_a_df(df, features_list):
+    temp_scaled = scale(df[features_list])
+    #return a DF
+    return pd.DataFrame(temp_scaled, columns= df.columns)
+
+
 #finish pre-processing by dropping the true labels (forming the x/y splits)
+
+from sklearn.model_selection import train_test_split
+
+#features = [] # Pick the features you want
+#df_features = df[features]
+#df_target = df['SeriousDlqin2yrs']
+#X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_target, test_size=0.2)
 
 ## Part IV: Generating features/predictors
 
@@ -73,6 +108,11 @@ def dummy_and_merge(df, x):
 
 
 ## Part VI: Evaluating the classifier
+
+def custom_predictions(clf, threshold = 0.7, x_test = x_test, y_test = y_test):
+    for i in range(0,len(x_test)):
+        
+    clf.predict_proba(x_test)
 
 def evaluateAccuracy(clf,predictDF, truthDF):
     correct_pred = 0
