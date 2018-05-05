@@ -6,6 +6,7 @@ from sklearn.model_selection import KFold
 
 
 def custom_predictions(clf, threshold = 0.7, x_test = X_test):
+    # threshold = the probability threshold for something to be a 0.
     # generate array with predicted probabilities
     pred_array = clf.predict_proba(x_test)
 
