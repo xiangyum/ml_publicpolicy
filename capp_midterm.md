@@ -34,12 +34,29 @@ Decision tree classifiers are the most appropriate. Decision trees partition the
 
 ## Q6.
 
-
 I suppose, first I'd want to see how the two classifier types perform along the evaluation metrics I'm interested in. I don't have any a priori reason to think why  either of the two would necessarily be better. 
 
 In the event of a tie, however, I'd choose K-NN on the basis of interpretability. First, KNN is more intuitively similar to how medical experts do diagnosis, so it'd be easy to sell them on it. Second, a deep decision tree with ~10 features would be hard to interpret.
 
 ## Q7.
+
+It does not give you a linear classifier.. Boosting methods use a group of classifiers that improve upon one another; even if each classifier per se were a linear model, the overall boosted model would not be so.
+
+## Q8.
+
+Yes? Since each successive classifier explicitly tries to improve upon the previous (miss-classified observations are more highly weighted).
+
+## Q9.
+
+10! = 3628800
+
+## Q10.
+
+
+
+
+
+
 
 
 
