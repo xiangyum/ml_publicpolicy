@@ -1,6 +1,20 @@
-\usepackage{bbm}
+---
+output: 
+  pdf_document:
+    keep_tex: true
+    fig_caption: true
+title: "CAPP Midterm"
+author: "Ma Xiang-yu"
+header-includes:
+   - \usepackage{bbm}
+---
 
-https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  options(digits = 3)
+)
+```
 
 # Section A: Short Answers
 
@@ -18,7 +32,7 @@ We should do feature-scaling (or normalization?) to the data because that will s
 
 It would be the number of times a node's nearest neighbor has a different label from itself divided by the total no. of nodes.
 
-$$ \frac{\sum_{i = 1}^{n} X_{i}}{n} $$
+$$ \frac{\sum_{i = 1}^n \mathbb{1}_{i}{n} $$
 
 where $X$ is an indicator variable for when node i has a different label from its closest neighbor.
 
@@ -75,7 +89,7 @@ Pros:
 Cons:
 * The separate model assumes a greater importance of gender, since we are doing an a priori separation of the data before we even begin the analysis. We must be able to defend why this assumption is reasonable.
 
-### Combined model
+### Combined modeL
 Pros:
 * Gender is considered as but one of the many features. We can increase the influence of gender by constructing interaction variables if we so wished to. 
 
@@ -103,7 +117,5 @@ Entropy: 0.971
 Information gain after split on "home insulation"
 
 # Section C: Solving a new problem
-
-
 
 

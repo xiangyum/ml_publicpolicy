@@ -1,0 +1,256 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={CAPP Midterm},
+            pdfauthor={Ma Xiang-yu},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{CAPP Midterm}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Ma Xiang-yu}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+    \date{}
+    \predate{}\postdate{}
+  
+\usepackage{bbm}
+
+\begin{document}
+\maketitle
+
+\hypertarget{section-a-short-answers}{%
+\section{Section A: Short Answers}\label{section-a-short-answers}}
+
+\hypertarget{q1.}{%
+\subsection{Q1.}\label{q1.}}
+
+Logistic regression.
+
+SVMs do not naturally generate a probability distribution for its
+prediction; instead it would give you a binary yes/no answer to the
+question. That's not what we're looking for, since we're looking for a
+probability of whether the unemployment rate will go down. Logistic
+regressions, on the other hand, gi ve us the log odds-ratio of the two
+outcomes, which we can easily convert to a probability.
+
+\hypertarget{q2.}{%
+\subsection{Q2.}\label{q2.}}
+
+We should do feature-scaling (or normalization?) to the data because
+that will speed up the gradient descent process for logistic regression.
+
+\hypertarget{q3.}{%
+\subsection{Q3.}\label{q3.}}
+
+It would be the number of times a node's nearest neighbor has a
+different label from itself divided by the total no. of nodes.
+
+\[ \frac{\sum_{i = 1}^n \mathbb{1}_{i}{n} \]
+
+where \(X\) is an indicator variable for when node i has a different
+label from its closest neighbor.
+
+\hypertarget{q4.}{%
+\subsection{Q4.}\label{q4.}}
+
+Assumptions: I use Manhattan distance and uniform weights.
+
+k = 1 has a 0\% error rate whereas k = 3 has a 80\% error rate.
+
+\hypertarget{q5.}{%
+\subsection{Q5.}\label{q5.}}
+
+Decision tree classifiers are the most appropriate. Decision trees
+partition the space into axis-parallel rectangles. In this case, 2
+partitions and 4 rectangles would let us classify the data perfectly.
+SVMs don't work since there isn't a margin that separates the data
+cleanly; the same is true for logistic regression, since there isn't a
+decision boundary along these 2 dimensions that lets us separate the
+data.
+
+\hypertarget{q6.}{%
+\subsection{Q6.}\label{q6.}}
+
+I suppose, first I'd want to see how the two classifier types perform
+along the evaluation metrics I'm interested in. I don't have any a
+priori reason to think why either of the two would necessarily be
+better.
+
+In the event of a tie, however, I'd choose K-NN on the basis of
+interpretability. First, KNN is more intuitively similar to how medical
+experts do diagnosis, so it'd be easy to sell them on it. Second, a deep
+decision tree with \textasciitilde{}10 features would be hard to
+interpret.
+
+\hypertarget{q7.}{%
+\subsection{Q7.}\label{q7.}}
+
+It does not give you a linear classifier.. Boosting methods use a group
+of classifiers that improve upon one another; even if each classifier
+per se were a linear model, the overall boosted model would not be so.
+
+\hypertarget{q8.}{%
+\subsection{Q8.}\label{q8.}}
+
+Yes? Since each successive classifier explicitly tries to improve upon
+the previous (miss-classified observations are more highly weighted).
+
+\hypertarget{q9.}{%
+\subsection{Q9.}\label{q9.}}
+
+10! = 3628800
+
+\hypertarget{q10.}{%
+\subsection{Q10.}\label{q10.}}
+
+No.~While the accuracy is high, it may not be a useful metric because
+there may be a large class imbalance. The precision of the model, even
+for the 10\% its most confident about, is only about 56\%. This is
+barely better than 50/50 guess. And the precision will only decrease as
+we expand our target population.
+
+\hypertarget{q11.}{%
+\subsection{Q11.}\label{q11.}}
+
+False. A random forest model will almost certainly tend to be better the
+decision tree model, but it won't \emph{always} be better.
+
+\hypertarget{q12.}{%
+\subsection{Q12.}\label{q12.}}
+
+Wheen (a) information on gender is always available, (b) when gender is
+expected to interact with all other features.
+
+\hypertarget{q13.}{%
+\subsection{Q13.}\label{q13.}}
+
+When (a) information on gender may not always be available, and (b)
+gender is not expected to interact with all other features.
+
+\hypertarget{q14.}{%
+\subsection{Q14.}\label{q14.}}
+
+\hypertarget{separate-model}{%
+\subsubsection{Separate model:}\label{separate-model}}
+
+Pros: * It might well be the case that gender interacts with many
+variables that predict re-entry. Rather than creating a whole host of
+interaction features, we can do it by separating the genders in the very
+beginning.
+
+Cons: * The separate model assumes a greater importance of gender, since
+we are doing an a priori separation of the data before we even begin the
+analysis. We must be able to defend why this assumption is reasonable.
+
+\hypertarget{combined-model}{%
+\subsubsection{Combined modeL}\label{combined-model}}
+
+Pros: * Gender is considered as but one of the many features. We can
+increase the influence of gender by constructing interaction variables
+if we so wished to.
+
+Cons: *
+
+\hypertarget{q15.}{%
+\subsection{Q15.}\label{q15.}}
+
+I see no reason why we couldn't do both, and pick whatever performs
+better.
+
+\hypertarget{section-b}{%
+\section{Section B:}\label{section-b}}
+
+\hypertarget{q1.-1}{%
+\subsection{Q1.}\label{q1.-1}}
+
+\hypertarget{a}{%
+\subsubsection{(a)}\label{a}}
+
+Random baseline accuracy: 0.6
+
+\hypertarget{b}{%
+\subsubsection{(b)}\label{b}}
+
+Entropy: 0.971
+
+\hypertarget{c}{%
+\subsubsection{(c)}\label{c}}
+
+Information gain after split on ``home insulation''
+
+\hypertarget{section-c-solving-a-new-problem}{%
+\section{Section C: Solving a new
+problem}\label{section-c-solving-a-new-problem}}
+
+
+\end{document}
