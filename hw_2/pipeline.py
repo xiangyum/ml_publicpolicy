@@ -102,7 +102,17 @@ def dummy_and_merge(df, x):
 
 #split data into testing and training data.
 
+features_list = []
+df_features = df[features_list]
+df_target = df[label]
 
+def split_traintest(df_features, df_target, test_size = 0.2):
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_target, test_size = test_size)
+    return X_train, X_test, Y_train, Y_test
+
+
+from sklearn.model_selection import train_test_split
 #clf = LogisticRegression()
 #clf.fit(x_train,y_train)
 
