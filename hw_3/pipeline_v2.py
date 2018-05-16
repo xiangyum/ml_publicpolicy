@@ -17,8 +17,10 @@ def read_data(fn, filetype = "csv"):
     else:
         return print("I only have CSVs at the moment!")
 
-
 ## Part 2: explore data
+
+def take_sample(df, fraction):
+    return df.sample(frac = fraction)
 
 def show_columns(df):
     return df.columns
@@ -75,10 +77,9 @@ def fill_whole_df_with_mean(df):
 def fill_col_with_mean(df):
 	return df.fillna(df.mean())
 
-#def identify_uni_outliers(df):
-    # identify univariate outliers
-    # assume normal distribution
-
+def left_merge(df_left, df_right, merge_column):
+    return pd.merge(df_left, df_right, how = 'left', on = merge_column)
+    
 # generating features
 
 def generate_dummy(df, colname, attach = False):
@@ -126,9 +127,10 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import GradientBoostingClassifier
 
 def fit_randomforest(x_train, y_train, feature_number, num_trees, depth_num, criterion_choice):
-    rf_clf = rf_clf = RandomForestClassifier(max_features = feature_number, n_estimators = num_trees, max_depth = depth_num, criterion = criterion_choice)
+    rf_clf = RandomForestClassifier(max_features = feature_number, n_estimators = num_trees, max_depth = depth_num, criterion = criterion_choice)
     rf_clf.fit(x_train,y_train)
     return rf_clf
 
@@ -183,6 +185,60 @@ def grid_cv_mtp(clf, param_grid, scoring, cv = 5, refit_metric = 'roc'):
 
     # see all performances:
     return grid
+model_params ={
+    RandomForestClassifier: {
+    'max_features': ["auto", "sqrt", "log2", 0.2], 
+    'n_estimators' : [5, 10, 20, 50, 100, 300, 500], 
+    "max_depth": [3,5,8], 
+    "criterion": ["gini", "entropy"]
+    },
+    SVC:{
+    "C": [10**i for i in range(-5, 5)],
+    "kernel":["linear", "rbf"],
+    "gamma": [10**i for i in np.arange(0, 1, 0.05)],
+    "probability": [True]
+    },
+    MultinomialNB:{
+    "alpha": [1, 5, 10, 25, 100]
+    },
+    KNeighborsClassifier:{
+    "n_neighbors":[3,5,8,10, 13,15,20,25,30,50],
+    "metric": ["euclidean", "manhattan", "chebyshev" ],
+    "weights":["uniform", "distance"]
+    },
+    DecisionTreeClassifier:{
+    "criterion": ["gini", "entropy"],
+    "splitter": ["best", "random"],
+    "max_depth": [None, "auto", "sqrt", "log2", 5, 0.3 ],
+    "min_samples_split": [1, 3, 5, 7, 9 ,15 ,20],
+    "max_features": [2, 3, 4, 5],
+    "min_samples_leaf": [1,2,3,4,5], 
+    "max_leaf_nodes": [None, 2, 3 ,4, 5]
+    },
+    LogisticRegression:{
+    "penalty": ['l1', 'l2'],
+    "C": [10**-5, 10**-2, 10**-1, 1, 10, 10**2, 10**5]
+    },
+    GradientBoostingClassifier:{
+    'loss': ["deviance", "exponential"], 
+    'learning_rate': [0.01, 0.1, 0.2, 0.3], 
+    'n_estimators': [3, 6, 10, 20, 100, 200, 500]
+    }
+}
+
+
+def classifier_comparison(model_params, x_train, y_train, eva_metric, cv_num):
+    comparison_results = {}
+    for model, param_grid in model_params.items():
+        # initialize gridsearch object
+        grid = GridSearchCV(clf(), param_grid, scoring = eva_metric, cv= cv_num)
+        grid.fit(x_train, y_train)
+        comparison_results[model] ={}
+        comparison_results[model]['cv_results'] = grid.cv_results_
+        comparison_results[model]['best_estimator'] = grid.best_estimator_
+        comparison_results[model]['best_score'] = grid.best_score_
+        comparison_results[model]['best_params'] = grid.best_params_
+    return comparison_results
 
 ## Part VI: Evaluating the classifier
 
@@ -228,12 +284,24 @@ def create_datetime(df, colname):
     # creates a new column with datetimem objects
     return df[colname].apply(parser.parse)
 
+def retrieve_year(df, date_column):
+    return df[date_column].map(lambda x: x.year)
+
+def retrieve_month(df, date_column):
+    return df[date_column].map(lambda x: x.month)
+
+def retrieve_day(df, date_column):
+    return df[date_column].map(lambda x: x.day)
+
 # a procedure for temporal validation:
-# train data  by year. test data on a subset 
-#def temp_valididation_year(df, date_column):
+# train data by year. test data on a subset of the next year's data
+# do I have to do this manually or?
 
+def split_traintest(df_features, df_target, test_size = 0.2):
+    X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_target, test_size = test_size)
+    return X_train, X_test, Y_train, Y_test
 
-
+#def temp_validation_year(df, date_column, startyear, endyear):
 
 
 # first, some basics of datetime objects:
