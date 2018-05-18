@@ -74,12 +74,18 @@ def fill_whole_df_with_mean(df):
         df.iloc[:,i] = fill_col_with_mean(df.iloc[:,i])
     return
 
+def fill_allNA_mode(df):
+    num_col = len(df.columns.tolist())
+    for i in range(0,num_col):
+        df_feats.iloc[:,i] = df_feats.iloc[:,i].fillna(df_feats.iloc[:,i].mode()[0])
+    return df
+
 def fill_col_with_mean(df):
 	return df.fillna(df.mean())
 
 def left_merge(df_left, df_right, merge_column):
     return pd.merge(df_left, df_right, how = 'left', on = merge_column)
-    
+
 # generating features
 
 def generate_dummy(df, colname, attach = False):
@@ -185,6 +191,7 @@ def grid_cv_mtp(clf, param_grid, scoring, cv = 5, refit_metric = 'roc'):
 
     # see all performances:
     return grid
+
 model_params ={
     RandomForestClassifier: {
     'max_features': ["auto", "sqrt", "log2", 0.2], 
@@ -226,7 +233,6 @@ model_params ={
     }
 }
 
-
 def classifier_comparison(model_params, x_train, y_train, eva_metric, cv_num):
     comparison_results = {}
     for model, param_grid in model_params.items():
@@ -241,7 +247,6 @@ def classifier_comparison(model_params, x_train, y_train, eva_metric, cv_num):
     return comparison_results
 
 ## Part VI: Evaluating the classifier
-
 
 #generate predictions according to a custom threshold
 def make_predictions(clf, x_test, threshold = 0.7):
@@ -297,13 +302,15 @@ def retrieve_day(df, date_column):
 # train data by year. test data on a subset of the next year's data
 # do I have to do this manually or?
 
+# def temp_valid_year(x_train, y_train, cv_time_thresholds):
+
+
+
+
+
 def split_traintest(df_features, df_target, test_size = 0.2):
     X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_target, test_size = test_size)
     return X_train, X_test, Y_train, Y_test
 
-#def temp_validation_year(df, date_column, startyear, endyear):
 
-
-# first, some basics of datetime objects:
-# for more, here: https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
 
