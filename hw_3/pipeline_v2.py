@@ -306,8 +306,6 @@ def retrieve_day(df, date_column):
 
 
 
-
-
 def split_traintest(df_features, df_target, test_size = 0.2):
     X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_target, test_size = test_size)
     return X_train, X_test, Y_train, Y_test
